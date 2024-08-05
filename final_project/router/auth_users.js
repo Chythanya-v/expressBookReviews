@@ -53,11 +53,9 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     //Write your code here
     let book = books[req.params.isbn]
     let review = book.reviews[req.session.authorization.username]
-    if (review) {
-        review = req.query.review
-    }
+
     book.reviews = { ...book.reviews, [req.session.authorization.username]: req.query.review }
-    return res.status(300).send(JSON.stringify(book.reviews));
+    return res.status(300).json({message: `The review for the book with ISBN ${req.params.isbn} is add/updated`});
 });
 
 // delete a book review
@@ -67,7 +65,7 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
     console.log(Object.keys(book.reviews),req.session.authorization.username)
     const user = Object.keys(book.reviews).filter(name => name == req.session.authorization.username)
     delete book.reviews.user
-    return res.status(300).send(JSON.stringify(book.reviews));
+    return res.status(300).json({message: `Reviews for the book with ISBN ${req.params.isbn} posted by the user ${req.session.authorization.username} is deleted`});
 });
 
 module.exports.authenticated = regd_users;

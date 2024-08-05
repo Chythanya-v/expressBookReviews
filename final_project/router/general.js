@@ -39,29 +39,78 @@ public_users.post("/register", (req, res) => {
 
 // Get the book list available in the shop
 public_users.get('/', function (req, res) {
-    //Write your code here 
-    return res.status(300).send(JSON.stringify(books));
+    new Promise((resolve, reject) => {
+        // Simulate a delay or an asynchronous operation here
+        setTimeout(() => {
+            resolve(books);
+        }, 100); // Adjust the delay as needed
+    })
+    .then(books => {
+        return res.status(200).json(books); // Send the books with status 200 (OK)
+    })
+    .catch(error => {
+        console.error(error); // Log the error
+        return res.status(500).send('Internal Server Error'); // Handle error case
+    });
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn', function (req, res) {
     //Write your code here
-    const book = books[req.params.isbn]
-    return res.status(300).send(JSON.stringify(book));
+    new Promise((resolve, reject) => {
+        // Simulate a delay or an asynchronous operation here
+        const book = books[req.params.isbn]
+        setTimeout(() => {
+            resolve(book);
+        }, 100); 
+    })
+    .then(book => {
+        return res.status(300).send(JSON.stringify(book));
+    })
+    .catch(error => {
+        console.error(error); // Log the error
+        return res.status(500).send('Internal Server Error'); // Handle error case
+    });   
+    
 });
 
 // Get book details based on author
 public_users.get('/author/:author', function (req, res) {
     //Write your code here
-    const book = Object.values(books).find(item => item.author === req.params.author)
-    return res.status(300).send(JSON.stringify(book));
+    new Promise((resolve, reject) => {
+        // Simulate a delay or an asynchronous operation here
+        const book = Object.values(books).find(item => item.author === req.params.author)
+        setTimeout(() => {
+            resolve(book);
+        }, 100); 
+    })
+    .then(book => {
+        return res.status(300).send(JSON.stringify(book));
+    })
+    .catch(error => {
+        console.error(error); // Log the error
+        return res.status(500).send('Internal Server Error'); // Handle error case
+    }); 
+    
 });
 
 // Get all books based on title
 public_users.get('/title/:title', function (req, res) {
     //Write your code here
-    const book = Object.values(books).find(item => item.title === req.params.title)
-    return res.status(300).send(JSON.stringify(book));
+    new Promise((resolve, reject) => {
+        // Simulate a delay or an asynchronous operation here
+        const book = Object.values(books).find(item => item.title === req.params.title)
+        setTimeout(() => {
+            resolve(book);
+        }, 100); 
+    })
+    .then(book => {
+        return res.status(300).send(JSON.stringify(book));
+    })
+    .catch(error => {
+        console.error(error); // Log the error
+        return res.status(500).send('Internal Server Error'); // Handle error case
+    });     
 });
 
 //  Get book review
